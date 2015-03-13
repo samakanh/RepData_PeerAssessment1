@@ -93,7 +93,7 @@ my_ds2 <- my_ds %>%
 
 Then we make a time series plot from transformed data.  
 We also calculate 5-minute interval which contains the maximum number of steps, 
-on average across all the days and plot into graph.
+and plot into graph.
 
 ```r
 max_avg_step <- max(my_ds2$average_step)

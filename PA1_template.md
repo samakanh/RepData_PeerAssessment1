@@ -12,6 +12,15 @@ Please download [Activity monitoring data](https://d396qusza40orc.cloudfront.net
 and move to your working directory if you want to run the code.
 
 ### Begin analysis
+#### Loading and preprocessing the data
+
+First, we have to load the dataset.
+
+
+```r
+raw_ds <- read.csv("activity.csv")
+```
+
 #### Question 1: What is mean total number of steps taken per day?
 
 Before we begin analysis to answer this question, 
@@ -24,12 +33,8 @@ if("dplyr" %in% rownames(installed.packages()) == FALSE){
 library(dplyr)
 ```
 
-Now we are ready to go! First, we have to load the data.
-
-```r
-raw_ds <- read.csv("activity.csv")
-```
-
+Now we are ready to go!  
+  
 Second, we transform the data for easier analysis.  
 We group the data by date and find the summarization of steps 
 using `sum()` function.  
@@ -87,7 +92,7 @@ my_ds2 <- my_ds %>%
 ```
 
 Then we make a time series plot from transformed data.  
-We also calculate the maximum number of steps of 5-minute interval, 
+We also calculate 5-minute interval which contains the maximum number of steps, 
 on average across all the days and plot into graph.
 
 ```r
@@ -96,15 +101,13 @@ max_interval <- as.numeric(my_ds2[my_ds2$average_step==max_avg_step,][1])
 with(my_ds2,plot(interval,average_step, type="l", col="blue", 
                  main="Average daily activity pattern", 
                  xlab="5-minute interval", ylab="Average step"))
-with(subset(my_ds2, interval == max_interval), points(interval,average_step,
-                                                 col="red",pch=20))
-text(max_interval+400,max_avg_step,max_avg_step,col="red")
+abline(v=max_interval, lwd=1, col="red")
+text(max_interval+75,(0),max_interval,col="red")
 ```
 
 ![](./PA1_template_files/figure-html/unnamed-chunk-7-1.png) 
 
-The maximum number of steps of 5-minute interval, on average across all the days 
-in the dataset is `206.1698113`.  
+The **835th** 5-minute interval contains the maximum number of steps.
 
 #### Question 3: Imputing missing values.
 
